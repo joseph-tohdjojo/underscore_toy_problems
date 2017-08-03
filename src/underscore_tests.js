@@ -432,6 +432,27 @@ var _ = { };
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
   _.zip = function() {
+    var i,
+        biggestArrLength = 0,
+        zipped = [];
+
+    for (i = 0; i < arguments.length; i++) {
+      if(arguments[i].length > biggestArrLength) {
+        biggestArrLength = arguments[i].length;
+      }
+    }
+
+    for (i = 0; i < biggestArrLength; i++) {
+      var j,
+          arr = [];
+      for (j = 0; j < arguments.length; j++) {
+        arr.push(arguments[j][i]);
+      }
+
+      zipped.push(arr);
+    }
+
+    return zipped;
   };
 
   // Takes a multidimensional array and converts it to a one-dimensional array.
@@ -442,11 +463,13 @@ var _ = { };
     result = [];
 
     check(nestedArray)
-    
+
     return result;
 
     function check(array) {
-      for (var i = 0; i < array.length; i++) {
+      var i;
+
+      for (i = 0; i < array.length; i++) {
         if(Array.isArray(array[i])) {
           check(array[i]);
         } else {
