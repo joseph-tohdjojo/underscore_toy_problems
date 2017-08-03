@@ -441,9 +441,17 @@ var _ = { };
 
     result = [];
 
-    for (i = 0; i < nestedArray.length; i++) {
-      if(Array.isArray(nestedArray[i])) {
-        
+    check(nestedArray)
+    
+    return result;
+
+    function check(array) {
+      for (var i = 0; i < array.length; i++) {
+        if(Array.isArray(array[i])) {
+          check(array[i]);
+        } else {
+          result.push(array[i]);
+        }
       }
     }
   };
